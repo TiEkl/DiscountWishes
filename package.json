@@ -1,0 +1,23 @@
+{
+  "name": "discountwishes",
+  "version": "1.0.0",
+  "description": "Console application for track\u001fing discounts of a wishlist of games.",
+  "main": "./src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiEkl/DiscountWishes.git"
+  },
+  "author": "TiEkl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TiEkl/DiscountWishes/issues"
+  },
+  "homepage": "https://github.com/TiEkl/DiscountWishes#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "request": "^2.88.2"
+  }
+}
