@@ -4,7 +4,7 @@
   "description": "Console application for track\u001fing discounts of a wishlist of games.",
   "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,10 @@
   "homepage": "https://github.com/TiEkl/DiscountWishes#readme",
   "dependencies": {
     "chalk": "^4.1.0",
-    "request": "^2.88.2"
+    "fastest-levenshtein": "^1.0.12",
+    "needle": "^2.5.2"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1"
   }
 }

@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-let listPath = './Wishlists';
+let listPath = './Wishlists/';
 
 async function getWishlists() {
     let listNames = [];
