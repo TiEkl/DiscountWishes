@@ -18,7 +18,7 @@ async function addWishlist(listName) {
     }
 }
 
-async function addSteamWishlist(listName, steamID) {
+async function addSteamWishlist(listName, steamID, filterTags) {
     return new Promise((resolve, reject) => {
         needle('get', steamURL(steamID)).then(response => {
             let steamWishlist = {
@@ -27,48 +27,24 @@ async function addSteamWishlist(listName, steamID) {
             }
             for (let key in response.body) {
                 let steamgame = response.body[key];
-                let price = 0;
+                let price = null;
+                let tags = [];
+                if (filterTags) {
+                    filterTags.forEach(tag => {
+                        if (steamgame.tags.includes(tag)) {
+                            tags.push(tag);
+                        }
+                    });
+                }
                 if (steamgame.subs[0] && steamgame.subs[0].price) {
                     price = parseFloat(steamgame.subs[0].price) / 100;
                 }
                 var game = {
                     name: steamgame.name,
                     steamprice: price,
+                    steamtags: steamgame.tags,
                 }
-                steamWishlist.games.push(game);
-            }
-            resolve(steamWishlist);
-        }).catch(error => {
-            reject("Some error");
-        });
-    })
-}
-
-async function addSteamWishlistByTags(listName, steamID, filterTags) {
-    return new Promise((resolve, reject) => {
-        needle('get', steamURL(steamID)).then(response => {
-            let steamWishlist = {
-                name: listName,
-                games: [],
-            }
-            for (let key in response.body) {
-                let steamgame = response.body[key];
-                let price = 0;
-                let tags = [];
-                filterTags.forEach(tag => {
-                    if (steamgame.tags.includes(tag)) {
-                        tags.push(tag);
-                    }
-                });
-                if (steamgame.subs[0] && steamgame.subs[0].price) {
-                    price = parseFloat(steamgame.subs[0].price) / 100;
-                }
-                if (tags.length > 0) {
-                    var game = {
-                        name: steamgame.name,
-                        steamprice: price,
-                        tag: tags,
-                    }
+                if (tags.length > 0 || !filterTags) {
                     steamWishlist.games.push(game);
                 }
             }
@@ -102,7 +78,7 @@ function saveWishlist(list) {
 module.exports = {
     addWishlist,
     addSteamWishlist,
-    addSteamWishlistByTags,
+    addSteamWishlistByTags: addSteamWishlist,
     removeWishlist,
     openWishlist,
     saveWishlist

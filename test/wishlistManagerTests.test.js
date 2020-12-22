@@ -76,7 +76,7 @@ describe('WishlistManager', function () {
         })
         describe('addSteamWishlistByTags', function () {
             it('Should successfully return the wishlist object with the correct games array length', async function () {
-                let actual = await wishlistManager.addSteamWishlistByTags('steamList', testID, ['Politics']);
+                let actual = await wishlistManager.addSteamWishlist('steamList', testID, ['Politics']);
                 let expected = 1;
                 assert.strictEqual(actual.games.length, expected);
             })
